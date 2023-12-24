@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'navbar.html.twig' %}
 
 {% block title %}Register{% endblock %}
 
@@ -22,4 +22,6 @@
     {{ form_end(registrationForm) }}
      
 </div>
+  {% include 'footer.html.twig' %}
+
 {% endblock %}

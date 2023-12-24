@@ -110,6 +110,7 @@ h6 {
 #header {
   transition: all 0.5s;
   z-index: 997;
+  background: rgba(40, 58, 90, 0.9) !important;
   padding: 15px 0;
 }
 
@@ -117,7 +118,9 @@ h6 {
 #header.header-inner-pages {
   background: rgba(40, 58, 90, 0.9);
 }
-
+.fixed-top {
+  position: sticky !important;
+}
 #header .logo {
   font-size: 30px;
   margin: 0;
