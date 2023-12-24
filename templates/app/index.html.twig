@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AppController!{% endblock %}
+
+{% block body %}
+<img src="{{ asset('images/esprit.jpeg')}}"><br>
+ <a href="{{ path('app_articles')}}">Page Articles </a><br>
+ <a href="{{ path('app_recherche')}}">Page Recherche </a>
+
+{% endblock %}
