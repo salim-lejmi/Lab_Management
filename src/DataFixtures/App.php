@@ -21,7 +21,7 @@ class App extends Fixture
         $admin = new User();
         $admin->setEmail('admin@gmail.com');
         $admin->setNom('admin');
-        $admin->setRoles(['admin']);
+        $admin->setRoles('admin');
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
 
         $manager->persist($admin);

@@ -11,3 +11,7 @@ Effacer le contenu du dossier migration du projet ensuite taper les commandes su
 
 5. $ symfony console make:migration
 6. $ symfony console doctrine:migrations:migrate
+
+to create admin
+
+7. $ php bin/console doctrine:fixtures:load
