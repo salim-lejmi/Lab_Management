@@ -55,6 +55,12 @@
 
           <li><a class="nav-link scrollto" href="">équipements</a></li>
         
+<li class="nav-item">
+    <form class="d-flex" action="{{ path('search_publications') }}" method="get">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+</li>
 
             <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>

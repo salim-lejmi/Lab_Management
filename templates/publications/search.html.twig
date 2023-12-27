@@ -1,0 +1,22 @@
+{# templates/publications/search.html.twig #}
+
+{% extends 'navbar.html.twig' %}
+
+{% block body %}
+    <h1>Search Results for "{{ query }}"</h1>
+    {% for publication in publications %}
+        <div>
+            <h2>{{ publication.title }}</h2>
+            <p>{{ publication.content }}</p>
+            <p>By <a href="{{ path('user_profile', {id: publication.author.id}) }}">{{ publication.author.nom }}</a></p>
+            {% if app.user == publication.author %}
+                <a href="{{ path('edit_publication', {id: publication.id}) }}">Edit</a>
+                <a href="{{ path('delete_publication', {id: publication.id}) }}">Delete</a>
+            {% elseif 'admin' in app.user.getRoles() %}
+                <a href="{{ path('delete_publication', {id: publication.id}) }}">Delete</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <p>No publications found for "{{ query }}".</p>
+    {% endfor %}
+{% endblock %}

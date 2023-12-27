@@ -48,6 +48,27 @@ class PublicationController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    #[Route('/publications/{id}/edit', name: 'edit_publication')]
+public function edit(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
+{
+    // check if the logged in user is the author of the publication
+    if ($this->getUser() !== $publication->getAuthor()) {
+        throw $this->createAccessDeniedException('You cannot edit publications that you do not own.');
+    }
+
+    $form = $this->createForm(PublicationType::class, $publication);
+
+    $form->handleRequest($request);
+    if ($form->isSubmitted() && $form->isValid()) {
+        $entityManager->flush();
+
+        return $this->redirectToRoute('publications');
+    }
+
+    return $this->render('publications/edit.html.twig', [
+        'form' => $form->createView(),
+    ]);
+}
 
     #[Route('/publications/{id}/delete', name: 'delete_publication')]
     public function delete(Publication $publication, EntityManagerInterface $entityManager): Response
@@ -57,4 +78,16 @@ class PublicationController extends AbstractController
 
         return $this->redirectToRoute('publications');
     }
+    
+#[Route('/publications/search', name: 'search_publications')]
+public function search(Request $request): Response
+{
+   $query = $request->query->get('q');
+   $publications = $this->doctrine->getRepository(Publication::class)->search($query);
+
+   return $this->render('publications/search.html.twig', [
+       'publications' => $publications,
+       'query' => $query,
+   ]);
+}
 }

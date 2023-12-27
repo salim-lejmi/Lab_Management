@@ -130,4 +130,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->publications;
     }
 
+    public function getRole(): ?string
+    {
+        return $this->role;
+    }
+
+    public function setRole(string $role): static
+    {
+        $this->role = $role;
+
+        return $this;
+    }
+
 }
