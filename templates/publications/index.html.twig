@@ -1,0 +1,18 @@
+{% extends 'navbar.html.twig' %}
+
+{% block body %}
+    <h1>Publications</h1>
+{% if app.user %}
+    <a href="{{ path('new_publication') }}">New Publication</a>
+{% endif %}
+    {% for publication in publications %}
+        <div>
+            <h2>{{ publication.title }}</h2>
+            <p>{{ publication.content }}</p>
+            <p>By <a href="{{ path('user_profile', {id: publication.author.id}) }}">{{ publication.author.nom }}</a></p>
+{% if app.user and (app.user == publication.author or 'admin' in app.user.getRoles()) %}
+            <a href="{{ path('delete_publication', {id: publication.id}) }}">Delete</a>
+        {% endif %}       
+         </div>
+    {% endfor %}
+{% endblock %}

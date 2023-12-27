@@ -14,9 +14,13 @@
     {% endif %}
         <h2>Informations des projets</h2>
         <!-- Project information will go here -->
-        <h2>Publications associées</h2>
-        <!-- Associated publications will go here -->
-
+<h2>Publications associées</h2>
+{% for publication in publications %}
+    <h3>{{ publication.title }}</h3>
+    <p>{{ publication.content }}</p>
+{% else %}
+    <p>No publications found.</p>
+{% endfor %}
 {% include 'footer.html.twig' %}
 
 {% endblock %}
