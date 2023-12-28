@@ -13,9 +13,13 @@
         {% if app.user == publication.author %}
             <a href="{{ path('edit_publication', {id: publication.id}) }}">Edit</a>
             <a href="{{ path('delete_publication', {id: publication.id}) }}">Delete</a>
+            {% if app.user is not null %}
+
         {% elseif 'admin' in app.user.getRoles() %}
             <a href="{{ path('delete_publication', {id: publication.id}) }}">Delete</a>
         {% endif %}
+        {% endif %}
+
     </div>
 {% endfor %}
 
