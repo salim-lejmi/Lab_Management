@@ -1,0 +1,11 @@
+{% extends 'navbar.html.twig' %}
+
+{% block body %}
+   <h1>Edit Equipment</h1>
+   {{ form_start(form) }}
+       {{ form_widget(form) }}
+       <button type="submit">Update Equipment</button>
+   {{ form_end(form) }}
+ {% include 'footer.html.twig' %}
+
+{% endblock %}
