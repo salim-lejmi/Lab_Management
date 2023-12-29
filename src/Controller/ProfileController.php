@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 use App\Entity\Publication;
+use App\Entity\User;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Doctrine\Persistence\ManagerRegistry;
+
 class ProfileController extends AbstractController
 {
     private $doctrine;
@@ -18,16 +21,17 @@ class ProfileController extends AbstractController
     {
         $this->doctrine = $doctrine;
     }
-    #[Route('/profile', name: 'user_profile')]
-    public function index(): Response
+    #[Route('/profile/{id}', name: 'user_profile')]
+    public function index(int $id): Response
     {
-        $user = $this->getUser();
-        $publications = $this->doctrine->getRepository(Publication::class)->findBy(['author' => $user]);
+       $user = $this->doctrine->getRepository(User::class)->find($id);
+
+       $publications = $this->doctrine->getRepository(Publication::class)->findBy(['author' => $user]);
     
-        return $this->render('profile/profile.html.twig', [
-            'user' => $user,
-            'publications' => $publications,
-        ]);
+       return $this->render('profile/profile.html.twig', [
+           'user' => $user,
+           'publications' => $publications,
+       ]);
     }
     #[Route('/profile/delete', name: 'user_delete')]
     public function deleteAccount(Request $request, EntityManagerInterface $entityManager, TokenStorageInterface $tokenStorage, SessionInterface $session): Response

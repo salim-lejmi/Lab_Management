@@ -80,7 +80,7 @@
             </ul>
           </li>
               {% if app.user %}
-            <li><a class="nav-link" href="{{ path('user_profile') }}">{{ app.user.nom }}</a></li>
+<li><a class="nav-link" href="{{ path('user_profile', {id: app.user.getId()}) }}">{{ app.user.nom }}</a></li>
             <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>
         {% else %}
                     <li><a class="nav-link" href="{{ path('app_register') }}">Sign Up</a></li>
