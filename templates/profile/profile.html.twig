@@ -13,8 +13,39 @@
         </form>
     {% endif %}
         <h2>Informations des projets</h2>
-        <!-- Project information will go here -->
-<h2>Publications associées</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>StarDate</th>
+                <th>EndDate</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for project in projects %}
+            <tr>
+                <td>{{ project.id }}</td>
+                <td>{{ project.username }}</td>
+                <td>{{ project.title }}</td>
+                <td>{{ project.description }}</td>
+                <td>{{ project.startDate ? project.startDate|date('Y-m-d') : '' }}</td>
+                <td>{{ project.endDate ? project.endDate|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table><h2>Publications associées</h2>
 <table class="table">
   <thead>
       <tr>

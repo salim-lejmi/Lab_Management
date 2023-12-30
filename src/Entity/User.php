@@ -117,6 +117,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __construct()
     {
         $this->publications = new ArrayCollection();
+        $this->projects = new ArrayCollection();
+
     }
 
     /**
@@ -128,6 +130,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             $this->publications = new ArrayCollection();
         }
         return $this->publications;
+    }
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'author')]
+private Collection $projects;
+
+    public function getProjects(): Collection
+    {
+        return $this->projects;
     }
 
     public function getRole(): ?string
