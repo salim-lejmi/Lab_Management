@@ -6,6 +6,8 @@
   <h1>Profile</h1>
         <p>username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
+<p>Chercheur: {{ user.chercheur }}</p>
+
 {% if app.user and (app.user == user or 'admin' in app.user.getRoles()) %}
         <form method="POST" action="{{ path('user_delete') }}">
             <input type="hidden" name="_token" value="{{ csrf_token('delete_account') }}">

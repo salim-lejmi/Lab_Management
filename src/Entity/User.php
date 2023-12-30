@@ -43,6 +43,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Equipment::class, mappedBy: 'creator')]
 private Collection $equipments;
 
+#[ORM\Column(type: "string", length: 255, nullable: true)]
+private ?string $chercheur = null;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
@@ -167,4 +170,14 @@ public function getEquipments(): Collection
     return $this->equipments;
 }
 
+public function getChercheur(): ?string
+{
+    return $this->chercheur;
+}
+
+public function setChercheur(?string $chercheur): self
+{
+    $this->chercheur = $chercheur;
+    return $this;
+}
 }
