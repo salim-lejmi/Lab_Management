@@ -1,46 +1,53 @@
-{% extends 'navbar.html.twig' %}
+        {% extends 'navbar.html.twig' %}
 
-{% block body %}
-<h1>Equipments</h1>
-{% if app.user %}
-  <a href="{{ path('new_equipment') }}">New Equipment</a>
-{% endif %}
-<table class="table">
- <thead>
-     <tr>
-         <th>Name</th>
-         <th>Description</th>
-         <th>Photo</th>
-                  <th>Projects</th>
+        {% block body %}
+        <h1>Equipments</h1>
+        {% if app.user %}
+        <a href="{{ path('new_equipment') }}">New Equipment</a>
+        {% endif %}
+        <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Photo</th>
+                        <th>Projects associé</th>
 
-         {% if app.user %}
-             <th>Actions</th>
-         {% endif %}
-     </tr>
- </thead>
- <tbody>
- {% for equipment in equipments %}
-     <tr>
-         <td>{{ equipment.name }}</td>
-         <td>{{ equipment.description }}</td>
-        <td><img style="max-width: 250px; max-height: 250px;" src="{{ equipment.photoUrl }}" alt="{{ equipment.name }}"></td>
-            <td>{{ equipment.project ? equipment.project.title : 'No project associated' }}</td>
+                {% if app.user %}
+                    <th>Actions</th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipment in equipments %}
+            <tr>
+                <td>{{ equipment.name }}</td>
+                <td>{{ equipment.description }}</td>
+                <td><img style="max-width: 250px; max-height: 250px;" src="{{ equipment.photoUrl }}" alt="{{ equipment.name }}"></td>
+<td>
+    <ul>
+        {% for project in equipment.projects %}
+        <li>{{ project.title }}</li>
+        {% else %}
+        <li>No project associated</li>
+        {% endfor %}
+    </ul>
+</td>
+        {% if app.user %}
+        <td>
+            <a href="{{ path('edit_equipment', {id: equipment.id}) }}">Edit</a>
+            <a href="{{ path('delete_equipment', {id: equipment.id}) }}">Delete</a>
+        </td>
+        {% endif %}
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">No equipments found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
 
-{% if app.user %}
-   <td>
-       <a href="{{ path('edit_equipment', {id: equipment.id}) }}">Edit</a>
-       <a href="{{ path('delete_equipment', {id: equipment.id}) }}">Delete</a>
-   </td>
-{% endif %}
-     </tr>
- {% else %}
-     <tr>
-         <td colspan="5">No equipments found</td>
-     </tr>
- {% endfor %}
- </tbody>
-</table>
+        {% include 'footer.html.twig' %}
 
-{% include 'footer.html.twig' %}
-
-{% endblock %}
+        {% endblock %}

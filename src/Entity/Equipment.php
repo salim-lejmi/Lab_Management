@@ -25,8 +25,12 @@ class Equipment
    #[ORM\Column(length: 255)]
    #[Assert\Url]
    private ?string $photoUrl = null;
-   #[ORM\ManyToOne(targetEntity: Project::class)]
-   private ?Project $project = null;
+   #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: "equipments")]
+   private Collection $projects;
+   public function __construct()
+{
+    $this->projects = new ArrayCollection();
+}
 
    public function getId(): ?int
    {
@@ -62,14 +66,31 @@ class Equipment
    {
        $this->photoUrl = $photoUrl;
    }
-   public function getProject(): ?Project
-   {
-       return $this->project;
-   }
+   /**
+ * @return Collection<int, Project>
+ */
+public function getProjects(): Collection
+{
+    return $this->projects;
+}
 
-   public function setProject(?Project $project): self
-   {
-       $this->project = $project;
-   
-       return $this;
-   }}
+public function addProject(Project $project): self
+{
+    if (!$this->projects->contains($project)) {
+        $this->projects[] = $project;
+        $project->addEquipment($this);
+    }
+
+    return $this;
+}
+
+public function removeProject(Project $project): self
+{
+    if ($this->projects->removeElement($project)) {
+        $project->removeEquipment($this);
+    }
+
+    return $this;
+}
+
+}

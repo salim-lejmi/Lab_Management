@@ -41,9 +41,9 @@ class Project
 
 
     
-#[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: 'projects')]
-private Collection $equipments;
-
+    #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: "projects")]
+    private Collection $equipments;
+    
 
     public function __construct()
     {
@@ -182,20 +182,23 @@ private Collection $equipments;
        return $this->equipments;
     }
     
-    public function addEquipment(Equipment $equipment): static
+
+    public function addEquipment(Equipment $equipment): self
     {
-       if (!$this->equipments->contains($equipment)) {
-           $this->equipments->add($equipment);
-       }
+        if (!$this->equipments->contains($equipment)) {
+            $this->equipments[] = $equipment;
+            $equipment->addProject($this);
+        }
     
-       return $this;
+        return $this;
     }
     
-    public function removeEquipment(Equipment $equipment): static
+    public function removeEquipment(Equipment $equipment): self
     {
-       $this->equipments->removeElement($equipment);
+        if ($this->equipments->removeElement($equipment)) {
+            $equipment->removeProject($this);
+        }
     
-       return $this;
+        return $this;
     }
-    
-}
+    }
