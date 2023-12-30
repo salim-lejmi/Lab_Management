@@ -41,12 +41,15 @@ class Project
     
     #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: "projects")]
     private Collection $equipments;
-    
+    #[ORM\ManyToMany(targetEntity: Publication::class)]
+private $publications;
+
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
         $this->equipments = new ArrayCollection();
+        $this->publications = new ArrayCollection();
 
     }
 
@@ -176,4 +179,25 @@ class Project
     
         return $this;
     }
+    public function getPublications(): Collection
+{
+    return $this->publications;
+}
+
+public function addPublication(Publication $publication): self
+{
+    if (!$this->publications->contains($publication)) {
+        $this->publications[] = $publication;
+    }
+
+    return $this;
+}
+
+public function removePublication(Publication $publication): self
+{
+    $this->publications->removeElement($publication);
+
+    return $this;
+}
+
     }

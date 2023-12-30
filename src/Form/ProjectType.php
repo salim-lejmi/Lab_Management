@@ -2,6 +2,7 @@
 
 namespace App\Form;
 use App\Entity\Equipment;
+use App\Entity\Publication;
 
 use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
@@ -25,6 +26,13 @@ class ProjectType extends AbstractType
                 'expanded' => true, // Add this line
                 'by_reference' => false,
 
+            ])
+            ->add('publications', EntityType::class, [
+                'class' => Publication::class,
+                'choice_label' => 'title',
+                'multiple' => true,
+                'expanded' => true, // render as checkboxes
+                'by_reference' => false,
             ]);
         ;
     }

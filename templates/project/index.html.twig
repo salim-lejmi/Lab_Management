@@ -9,7 +9,9 @@
                 <th>Description</th>
                 <th>StarDate</th>
                 <th>EndDate</th>
-               <th>equipments</th>
+               <th>Equipments</th>
+           <th>Projects</th>
+
                 <th>actions</th>
 
             </tr>
@@ -27,6 +29,11 @@
           {{ equipment.name }}<br>
       {% endfor %}
   </td>
+  <td>
+            {% for publication in project.publications %}
+                {{ publication.title }}<br>
+            {% endfor %}
+        </td>
                 <td>
                     <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
                     <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
