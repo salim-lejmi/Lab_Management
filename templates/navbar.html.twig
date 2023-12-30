@@ -51,7 +51,7 @@
         <ul>
           <li><a class="nav-link scrollto active" href="{{ path('app_accueil') }}">Home</a></li>
           <li><a class="nav-link scrollto" href="{{path('app_project')}}">projets</a></li>
-          <li><a class="nav-link scrollto" href="{{path('app_researcher')}}">Researcher</a></li>
+<li><a class="nav-link scrollto" href="{{ path('researchers') }}">Researchers</a></li>
           <li><a class="nav-link scrollto" href="{{ path('publications') }}">publications</a></li>
 
 <li><a class="nav-link scrollto" href="{{ path('equipments') }}">equipments</a></li>
@@ -63,23 +63,7 @@
     </form>
 </li>
 
-            <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
+
               {% if app.user %}
 <li><a class="nav-link" href="{{ path('user_profile', {id: app.user.getId()}) }}">{{ app.user.username }}</a></li>
             <li><a class="nav-link" href="{{ path('app_logout') }}">Logout</a></li>

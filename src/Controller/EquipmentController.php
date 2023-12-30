@@ -32,20 +32,23 @@ class EquipmentController extends AbstractController
    {
        $equipment = new Equipment();
        $form = $this->createForm(EquipmentType::class, $equipment);
-
+   
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()) {
+           // Set the current user as the creator of the equipment
+           $equipment->setCreator($this->getUser());
+   
            $entityManager->persist($equipment);
            $entityManager->flush();
-
+   
            return $this->redirectToRoute('equipments');
        }
-
+   
        return $this->render('equipments/new.html.twig', [
            'form' => $form->createView(),
        ]);
    }
-
+   
    #[Route('/equipments/{id}/edit', name: 'edit_equipment')]
    public function edit(Request $request, Equipment $equipment, EntityManagerInterface $entityManager): Response
    {

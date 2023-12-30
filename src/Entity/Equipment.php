@@ -27,6 +27,11 @@ class Equipment
    private ?string $photoUrl = null;
    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: "equipments")]
    private Collection $projects;
+
+   #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'equipments')]
+private ?User $creator = null;
+
+
    public function __construct()
 {
     $this->projects = new ArrayCollection();
@@ -91,6 +96,15 @@ public function removeProject(Project $project): self
     }
 
     return $this;
+}
+public function getCreator(): ?User
+{
+    return $this->creator;
+}
+
+public function setCreator(?User $creator): void
+{
+    $this->creator = $creator;
 }
 
 }

@@ -33,6 +33,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
+    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'author')]
+    private Collection $projects;
+    #[ORM\OneToMany(targetEntity: Publication::class, mappedBy: 'author')]
+
+    private $publications;
+
+
+    #[ORM\OneToMany(targetEntity: Equipment::class, mappedBy: 'creator')]
+private Collection $equipments;
+
+    public function __construct()
+    {
+        $this->publications = new ArrayCollection();
+        $this->projects = new ArrayCollection();
+        $this->equipments = new ArrayCollection();
+
+
+    }
 
     public function getId(): ?int
     {
@@ -112,15 +130,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-    private $publications;
-
-    public function __construct()
-    {
-        $this->publications = new ArrayCollection();
-        $this->projects = new ArrayCollection();
-
-    }
-
+  
     /**
      * @return Collection|Publication[]
      */
@@ -131,13 +141,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         }
         return $this->publications;
     }
-    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'author')]
-private Collection $projects;
 
-    public function getProjects(): Collection
-    {
-        return $this->projects;
-    }
+public function getProjects(): Collection
+{
+    return $this->projects;
+}
 
     public function getRole(): ?string
     {
@@ -150,5 +158,13 @@ private Collection $projects;
 
         return $this;
     }
+
+    /**
+ * @return Collection<int, Equipment>
+ */
+public function getEquipments(): Collection
+{
+    return $this->equipments;
+}
 
 }

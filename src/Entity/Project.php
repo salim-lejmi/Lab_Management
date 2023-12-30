@@ -28,8 +28,6 @@ class Project
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-    #[ORM\ManyToMany(targetEntity: Researcher::class, inversedBy: 'projects')]
-    private Collection $researchers;
 
     #[ORM\Column(length: 255)]
     private ?string $username = null;
@@ -47,7 +45,6 @@ class Project
 
     public function __construct()
     {
-        $this->researchers = new ArrayCollection();
         $this->users = new ArrayCollection();
         $this->equipments = new ArrayCollection();
 
@@ -106,29 +103,7 @@ class Project
         return $this;
     }
 
-    /**
-     * @return Collection<int, Researcher>
-     */
-    public function getResearchers(): Collection
-    {
-        return $this->researchers;
-    }
 
-    public function addResearcher(Researcher $researcher): static
-    {
-        if (!$this->researchers->contains($researcher)) {
-            $this->researchers->add($researcher);
-        }
-
-        return $this;
-    }
-
-    public function removeResearcher(Researcher $researcher): static
-    {
-        $this->researchers->removeElement($researcher);
-
-        return $this;
-    }
 
     public function getUsername(): ?string
     {
