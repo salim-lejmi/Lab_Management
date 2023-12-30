@@ -35,8 +35,12 @@
 </td>
         {% if app.user %}
         <td>
+         {% if app.user == equipment.creator %}
             <a href="{{ path('edit_equipment', {id: equipment.id}) }}">Edit</a>
             <a href="{{ path('delete_equipment', {id: equipment.id}) }}">Delete</a>
+             {% elseif 'admin' in app.user.getRoles() %}
+            <a href="{{ path('delete_equipment', {id: equipment.id}) }}">Delete</a>
+        {% endif %}
         </td>
         {% endif %}
             </tr>
