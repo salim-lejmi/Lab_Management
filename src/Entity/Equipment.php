@@ -5,6 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: \App\Repository\EquipmentRepository::class)]
+
 class Equipment
 {
    #[ORM\Id]
@@ -23,6 +24,8 @@ class Equipment
    #[ORM\Column(length: 255)]
    #[Assert\Url]
    private ?string $photoUrl = null;
+   #[ORM\ManyToOne(targetEntity: Project::class)]
+   private ?Project $project = null;
 
    public function getId(): ?int
    {
@@ -58,4 +61,14 @@ class Equipment
    {
        $this->photoUrl = $photoUrl;
    }
-}
+   public function getProject(): ?Project
+   {
+       return $this->project;
+   }
+
+   public function setProject(?Project $project): self
+   {
+       $this->project = $project;
+   
+       return $this;
+   }}

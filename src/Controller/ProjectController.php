@@ -35,6 +35,10 @@ class ProjectController extends AbstractController
             $project->setAuthor($this->getUser());
     
             $entityManager->persist($project);
+            foreach ($project->getEquipments() as $equipment) {
+                $equipment->setProject($project);
+                $entityManager->persist($equipment);
+                }
             $entityManager->flush();
     
             return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);

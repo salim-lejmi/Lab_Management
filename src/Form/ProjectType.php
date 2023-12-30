@@ -23,6 +23,8 @@ class ProjectType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true, // Add this line
+                'by_reference' => false,
+
             ]);
         ;
     }

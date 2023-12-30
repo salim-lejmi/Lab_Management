@@ -11,6 +11,8 @@
          <th>Name</th>
          <th>Description</th>
          <th>Photo</th>
+                  <th>Projects</th>
+
          {% if app.user %}
              <th>Actions</th>
          {% endif %}
@@ -22,6 +24,8 @@
          <td>{{ equipment.name }}</td>
          <td>{{ equipment.description }}</td>
         <td><img style="max-width: 250px; max-height: 250px;" src="{{ equipment.photoUrl }}" alt="{{ equipment.name }}"></td>
+            <td>{{ equipment.project ? equipment.project.title : 'No project associated' }}</td>
+
 {% if app.user %}
    <td>
        <a href="{{ path('edit_equipment', {id: equipment.id}) }}">Edit</a>

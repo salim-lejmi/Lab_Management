@@ -27,9 +27,7 @@ class EquipmentController extends AbstractController
        return $this->render('equipments/index.html.twig', [
            'equipments' => $equipments,
        ]);
-   }
-
-   #[Route('/equipments/new', name: 'new_equipment')]
+   }   #[Route('/equipments/new', name: 'new_equipment')]
    public function new(Request $request, EntityManagerInterface $entityManager): Response
    {
        $equipment = new Equipment();
