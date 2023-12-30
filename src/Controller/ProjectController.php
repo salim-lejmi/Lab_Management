@@ -36,7 +36,7 @@ class ProjectController extends AbstractController
     
             $entityManager->persist($project);
             foreach ($project->getEquipments() as $equipment) {
-                $equipment->setProject($project);
+                $equipment->addProject($project);
                 $entityManager->persist($equipment);
                 }
             $entityManager->flush();

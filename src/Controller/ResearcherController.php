@@ -42,7 +42,7 @@ public function assignProject(int $id, int $projectId, Request $request, EntityM
 
    $researcherProject = new ResearcherProject();
    $researcherProject->setResearcher($researcher);
-   $researcherProject->setProject($project);
+   $researcherProject->addProject($project);
 
    $em->persist($researcherProject);
    $em->flush();
