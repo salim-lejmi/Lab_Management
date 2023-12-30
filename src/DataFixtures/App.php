@@ -22,7 +22,7 @@ class App extends Fixture
         // $manager->persist($product);
         $admin = new User();
         $admin->setEmail('admin@gmail.com');
-        $admin->setNom('admin');
+        $admin->setUsername('admin');
         $admin->setRoles('admin');
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
 

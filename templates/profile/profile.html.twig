@@ -4,7 +4,7 @@
 
 {% block body %}
   <h1>Profile</h1>
-        <p>Nom: {{ user.nom }}</p>
+        <p>username: {{ user.username }}</p>
         <p>Email: {{ user.email }}</p>
 {% if app.user and (app.user == user or 'admin' in app.user.getRoles()) %}
         <form method="POST" action="{{ path('user_delete') }}">
@@ -62,7 +62,7 @@
       <tr>
           <td>{{ publication.title }}</td>
           <td>{{ publication.content }}</td>
-<td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.nom }}</a></td>
+<td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.username }}</a></td>
 {% if app.user %}
     <td>
         {% if app.user == publication.author %}

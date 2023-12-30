@@ -21,7 +21,7 @@
                     <tr>
                         <td>{{ publication.title }}</td>
                         <td>{{ publication.content }}</td>
-                        <td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.nom }}</a></td>
+                        <td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.username }}</a></td>
                         {% if app.user %}
                             <td>
                                 {% if app.user == publication.author %}

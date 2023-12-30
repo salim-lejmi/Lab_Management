@@ -32,7 +32,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $nom = null;
+    private ?string $username = null;
 
     public function getId(): ?int
     {
@@ -101,14 +101,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getNom(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nom;
+        return $this->username;
     }
 
-    public function setNom(?string $nom): static
+    public function setUsername(?string $username): static
     {
-        $this->nom = $nom;
+        $this->username = $username;
 
         return $this;
     }
