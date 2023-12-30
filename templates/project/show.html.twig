@@ -27,7 +27,12 @@
                 <th>EndDate</th>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d') : '' }}</td>
             </tr>
-
+<tr>
+                <th>equipments</th>
+                <td>{% for equipment in project.equipments %}
+    <li>{{ equipment.name }}</li>
+{% endfor %}</td>
+            </tr>
             <tr>
                 <th>Chercheurs</th>
                 <td>
