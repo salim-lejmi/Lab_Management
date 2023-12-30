@@ -11,6 +11,8 @@
           <th>Title</th>
           <th>Content</th>
           <th>Author</th>
+           <th>Projects</th>
+
           {% if app.user %}
               <th>Actions</th>
           {% endif %}
@@ -21,8 +23,14 @@
       <tr>
           <td>{{ publication.title }}</td>
           <td>{{ publication.content }}</td>
+        
 <td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.username }}</a></td>
 {% if app.user %}
+     <td>
+            {% for project in publication.projects %}
+                {{ project.title }}<br>
+            {% endfor %}
+        </td>
     <td>
         {% if app.user == publication.author %}
             <a href="{{ path('edit_publication', {id: publication.id}) }}">Edit</a>

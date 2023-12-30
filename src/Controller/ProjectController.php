@@ -88,18 +88,7 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/assign/{researcherId}', name: 'app_project_assign', methods: ['GET'])]
-public function assignProjectToResearcher(Project $project, Researcher $researcher, EntityManagerInterface $entityManager): Response
-{
-    $project->addResearcher($researcher);
-    $entityManager->persist($project);
-    $entityManager->flush();
 
-    return $this->redirectToRoute('app_project_show', ['id' => $project->getId()]);
-}
-
-
-    
 
     
 }

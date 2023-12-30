@@ -1,6 +1,8 @@
 <?php
 // src/Entity/Publication.php
 namespace App\Entity;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,6 +26,14 @@ class Publication
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
+
+
+    #[ORM\ManyToMany(targetEntity: Project::class)]
+private $projects;
+public function __construct()
+{
+    $this->projects = new ArrayCollection();
+}
 
     public function getId(): ?int
     {
@@ -59,4 +69,25 @@ class Publication
     {
         $this->author = $author;
     }
+    public function getProjects(): Collection
+{
+    return $this->projects;
+}
+
+public function addProject(Project $project): self
+{
+    if (!$this->projects->contains($project)) {
+        $this->projects[] = $project;
+    }
+
+    return $this;
+}
+
+public function removeProject(Project $project): self
+{
+    $this->projects->removeElement($project);
+
+    return $this;
+}
+
 }
