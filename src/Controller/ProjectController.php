@@ -39,6 +39,10 @@ class ProjectController extends AbstractController
                 $equipment->addProject($project);
                 $entityManager->persist($equipment);
                 }
+                foreach ($project->getPublications() as $publication) {
+                    $publication->addProject($project);
+                    $entityManager->persist($publication);
+                 }
             $entityManager->flush();
     
             return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);
