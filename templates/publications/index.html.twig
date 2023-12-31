@@ -25,12 +25,15 @@
           <td>{{ publication.content }}</td>
         
 <td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.username }}</a></td>
-     <td>
-            {% for project in publication.projects %}
-                {{ project.title }}<br>
-            {% endfor %}
-        </td>
-
+  <td>
+           {% if publication.projects is empty and app.user == publication.author %}
+               <a href="{{ path('edit_publication', {id: publication.id}) }}">Add project</a>
+           {% else %}
+               {% for project in publication.projects %}
+                  {{ project.title }}<br>
+               {% endfor %}
+           {% endif %}
+         </td>
 {% if app.user %}
     <td>
         {% if app.user == publication.author %}

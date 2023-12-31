@@ -33,23 +33,38 @@
         <tbody>
         {% for project in projects %}
             <tr>
-  <td>{% for user in project.users %}
-    {{ user.username }}<br>
-{% endfor %}              
-  <td>{{ project.title }}</td>
+ <td>
+                {% if project.users is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add username</a>
+                {% else %}
+                    {% for user in project.users %}
+                        {{ user.username }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
+                              <td>{{ project.title }}</td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d') : '' }}</td>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d') : '' }}</td>
   <td>
-      {% for equipment in project.equipments %}
-          {{ equipment.name }}<br>
-      {% endfor %}
-  </td>
-  <td>
-            {% for publication in project.publications %}
-                {{ publication.title }}<br>
-            {% endfor %}
-        </td>
+                {% if project.equipments is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add equipment</a>
+                {% else %}
+                    {% for equipment in project.equipments %}
+                        {{ equipment.name }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
+              
+                 <td>
+                {% if project.equipments is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add equipment</a>
+                {% else %}
+                    {% for equipment in project.equipments %}
+                        {{ equipment.name }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
     <td>
                         <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
 
@@ -82,6 +97,8 @@
           <th>Title</th>
           <th>Content</th>
           <th>Author</th>
+           <th>Projects</th>
+
           {% if app.user %}
               <th>Actions</th>
           {% endif %}
@@ -92,7 +109,17 @@
       <tr>
           <td>{{ publication.title }}</td>
           <td>{{ publication.content }}</td>
+        
 <td><a href="{{ path('user_profile', {id: publication.author.getId()}) }}">{{ publication.author.username }}</a></td>
+  <td>
+           {% if publication.projects is empty and app.user == publication.author %}
+               <a href="{{ path('edit_publication', {id: publication.id}) }}">Add project</a>
+           {% else %}
+               {% for project in publication.projects %}
+                  {{ project.title }}<br>
+               {% endfor %}
+           {% endif %}
+         </td>
 {% if app.user %}
     <td>
         {% if app.user == publication.author %}
@@ -113,7 +140,6 @@
   {% endfor %}
   </tbody>
 </table>
-
 {% include 'footer.html.twig' %}
 
 {% endblock %}

@@ -19,24 +19,38 @@
         <tbody>
         {% for project in projects %}
             <tr>
-                <td>{% for user in project.users %}
-    {{ user.username }}<br>
-{% endfor %}
-</td>
-                <td>{{ project.title }}</td>
+ <td>
+                {% if project.users is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add username</a>
+                {% else %}
+                    {% for user in project.users %}
+                        {{ user.username }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
+                              <td>{{ project.title }}</td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d') : '' }}</td>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d') : '' }}</td>
   <td>
-      {% for equipment in project.equipments %}
-          {{ equipment.name }}<br>
-      {% endfor %}
-  </td>
-  <td>
-            {% for publication in project.publications %}
-                {{ publication.title }}<br>
-            {% endfor %}
-        </td>
+                {% if project.equipments is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add equipment</a>
+                {% else %}
+                    {% for equipment in project.equipments %}
+                        {{ equipment.name }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
+              
+                 <td>
+                {% if project.equipments is empty and app.user == project.author %}
+                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">Add equipment</a>
+                {% else %}
+                    {% for equipment in project.equipments %}
+                        {{ equipment.name }}<br>
+                    {% endfor %}
+                {% endif %}
+              </td>
     <td>
                         <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
 
