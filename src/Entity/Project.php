@@ -129,24 +129,6 @@ private Collection $users;
         return $this->users;
     }
 
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addProject($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeProject($this);
-        }
-
-        return $this;
-    }
     public function getAuthor(): ?User
     {
         return $this->author;
