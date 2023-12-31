@@ -3,6 +3,8 @@
 namespace App\DataFixtures;
 use App\Entity\User;
 use App\Entity\Equipment;
+use App\Entity\Publication;
+use App\Entity\Project;
 
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
@@ -27,6 +29,44 @@ class App extends Fixture
         $admin->setPassword($this->passwordHasher->hashPassword($admin, 'admin'));
 
         $manager->persist($admin);
+
+
+        $user1 = new User();
+        $user1->setUsername('AliceChen');
+        $user1->setEmail('alice@gmail.com');
+        $user1->setRoles('user');
+        $user1->setChercheur('chercheur principal');
+        $user1->setPassword($this->passwordHasher->hashPassword($user1, '0000'));
+
+        $user2 = new User();
+        $user2->setUsername('BrianWilliams');
+        $user2->setEmail('brian@gmail.com');
+        $user2->setRoles('user');
+        $user2->setChercheur('collaborateur');
+        $user2->setPassword($this->passwordHasher->hashPassword($user2, '0000'));
+
+        $manager->persist($user1);
+        $manager->persist($user2);
+        $this->addReference('user-1', $user1);
+        $this->addReference('user-2', $user2);
+        $publication = new Publication();
+        $publication->setTitle('Enhanced Biodegradation of Crude Oil');
+        $publication->setContent('This study demonstrated that genetically modified bacteria expressing cold-adapted xylanases exhibited significantly higher crude oil degradation activity at low temperatures, offering a potential solution for oil spill cleanup in cold environments.');
+        $publication->setAuthor($this->getReference('user-1'));
+
+        $manager->persist($publication);
+        $this->addReference('publication-1', $publication);
+        $project = new Project();
+        $project->setTitle('Bioremediation of Oil Spills in Cold Marine Ecosystems using Engineered Microbes');
+        $project->setDescription('This laboratory project investigated the potential of engineered bacteria to degrade crude oil in cold marine environments, aiming to develop a sustainable and efficient bioremediation approach for oil spills.');
+        $project->setStartDate(new \DateTime('2020-07-01'));
+        $project->setEndDate(new \DateTime('2023-12-31'));
+        $project->setAuthor($this->getReference('user-1'));
+        $project->addPublication($this->getReference('publication-1'));
+
+        $manager->persist($project);
+
+
         $equipment1 = new Equipment();
         $equipment1->setName('AGITATEUR VORTEX');
         $equipment1->setDescription("Vortex robuste pour une agitation stable et fiable. Il commence à agiter lorsque la tête en coupelle est enfoncée. La vitesse en réglée à 2500 tours/min pour fournir un mélange vigoureux des échantillons.");
