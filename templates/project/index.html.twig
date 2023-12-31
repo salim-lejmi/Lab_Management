@@ -34,10 +34,25 @@
                 {{ publication.title }}<br>
             {% endfor %}
         </td>
-                <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-                </td>
+                {% if app.user %}
+    <td>
+        {% if app.user == project.author %}
+            <a href="{{ path('app_project_edit', {'id': project.id}) }}">Edit</a>
+            <form method="POST" action="{{ path('app_project_delete', {'id': project.id}) }}" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        {% elseif 'admin' in app.user.getRoles() %}
+            <form method="POST" action="{{ path('app_project_delete', {'id': project.id}) }}" style="display:inline;">
+                <input type="hidden" name="_method" value="DELETE">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ project.id) }}">
+                <button type="submit">Delete</button>
+            </form>
+        {% endif %}
+    </td>
+{% endif %}
+
             </tr>
         {% else %}
             <tr>

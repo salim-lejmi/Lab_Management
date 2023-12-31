@@ -33,12 +33,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
-    #[ORM\OneToMany(targetEntity: Project::class, mappedBy: 'author')]
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users')]
     private Collection $projects;
     #[ORM\OneToMany(targetEntity: Publication::class, mappedBy: 'author')]
-
-    private $publications;
-
+    private Collection $publications;
+        
 
     #[ORM\OneToMany(targetEntity: Equipment::class, mappedBy: 'creator')]
 private Collection $equipments;

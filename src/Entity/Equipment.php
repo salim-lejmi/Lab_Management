@@ -27,6 +27,7 @@ class Equipment
    private ?string $photoUrl = null;
    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: "equipments")]
    private Collection $projects;
+   
 
    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'equipments')]
 private ?User $creator = null;

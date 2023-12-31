@@ -33,17 +33,18 @@ class Project
     private ?string $username = null;
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'projects')]
     private ?User $author = null;
-        #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
-    private Collection $users;
 
+  
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
+private Collection $users;
 
     
     #[ORM\ManyToMany(targetEntity: Equipment::class, inversedBy: "projects")]
+    #[ORM\JoinTable(name: "project_equipment")]
     private Collection $equipments;
-    #[ORM\ManyToMany(targetEntity: Publication::class)]
-private $publications;
-
+    #[ORM\ManyToMany(targetEntity: Publication::class, mappedBy: "projects")]
+    private $publications;
 
     public function __construct()
     {

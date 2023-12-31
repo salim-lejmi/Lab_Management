@@ -23,13 +23,12 @@ class Publication
     #[Assert\NotBlank]
     private ?string $content = null;
 
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'publications')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $author = null;
-
-
-    #[ORM\ManyToMany(targetEntity: Project::class)]
-private $projects;
+    
+    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: "publications")]
+    private $projects;
 public function __construct()
 {
     $this->projects = new ArrayCollection();
