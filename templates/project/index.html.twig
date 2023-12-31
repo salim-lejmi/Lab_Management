@@ -34,8 +34,11 @@
                 {{ publication.title }}<br>
             {% endfor %}
         </td>
-                {% if app.user %}
     <td>
+                        <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
+
+                    {% if app.user %}
+
         {% if app.user == project.author %}
             <a href="{{ path('app_project_edit', {'id': project.id}) }}">Edit</a>
             <a href="{{ path('app_project_delete', {'id': project.id}) }}">Delete</a>
@@ -44,8 +47,9 @@
            <a href="{{ path('app_project_delete', {'id': project.id}) }}">Delete</a>
 
         {% endif %}
+        {% endif %}
+
     </td>
-{% endif %}
 
             </tr>
         {% else %}
