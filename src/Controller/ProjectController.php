@@ -42,7 +42,7 @@ class ProjectController extends AbstractController
                 foreach ($project->getPublications() as $publication) {
                     $publication->addProject($project);
                     $entityManager->persist($publication);
-                 }
+                }
             $entityManager->flush();
     
             return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);
@@ -66,21 +66,40 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
+        // Clone the original publications to compare later
+        $originalPublications = clone $project->getPublications();
+    
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
+            // Remove the deselected publications
+            foreach ($originalPublications as $publication) {
+                if (false === $project->getPublications()->contains($publication)) {
+                    $publication->removeProject($project);
+                    $entityManager->persist($publication);
+                }
+            }
+    
+            // Add new publications
+            foreach ($project->getPublications() as $publication) {
+                if (false === $originalPublications->contains($publication)) {
+                    $publication->addProject($project);
+                    $entityManager->persist($publication);
+                }
+            }
+    
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_project', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('project/edit.html.twig', [
             'project' => $project,
             'form' => $form,
         ]);
     }
-
+    
     #[Route('/{id}/delete', name: 'app_project_delete', methods: ['POST'])]
     public function delete(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
