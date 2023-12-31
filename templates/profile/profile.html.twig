@@ -23,7 +23,11 @@
                 <th>Description</th>
                 <th>StarDate</th>
                 <th>EndDate</th>
+               <th>Equipments</th>
+           <th>Publications</th>
+
                 <th>actions</th>
+
             </tr>
         </thead>
         <tbody>
@@ -34,10 +38,33 @@
                 <td>{{ project.description }}</td>
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d') : '' }}</td>
                 <td>{{ project.endDate ? project.endDate|date('Y-m-d') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
-                    <a href="{{ path('app_project_edit', {'id': project.id}) }}">edit</a>
-                </td>
+  <td>
+      {% for equipment in project.equipments %}
+          {{ equipment.name }}<br>
+      {% endfor %}
+  </td>
+  <td>
+            {% for publication in project.publications %}
+                {{ publication.title }}<br>
+            {% endfor %}
+        </td>
+    <td>
+                        <a href="{{ path('app_project_show', {'id': project.id}) }}">show</a>
+
+                    {% if app.user %}
+
+        {% if app.user == project.author %}
+            <a href="{{ path('app_project_edit', {'id': project.id}) }}">Edit</a>
+            <a href="{{ path('app_project_delete', {'id': project.id}) }}">Delete</a>
+
+        {% elseif 'admin' in app.user.getRoles() %}
+           <a href="{{ path('app_project_delete', {'id': project.id}) }}">Delete</a>
+
+        {% endif %}
+        {% endif %}
+
+    </td>
+
             </tr>
         {% else %}
             <tr>
@@ -45,7 +72,8 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table><h2>Publications associées</h2>
+    </table>
+    <h2>Publications associées</h2>
 <table class="table">
   <thead>
       <tr>

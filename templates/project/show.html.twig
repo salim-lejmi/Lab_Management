@@ -13,6 +13,10 @@
                 <td>{{ project.title }}</td>
             </tr>
             <tr>
+                <th>Chercheurs</th>
+                <td>{{ project.username }}</td>
+            </tr>
+            <tr>
                 <th>Description</th>
                 <td>{{ project.description }}</td>
             </tr>
@@ -30,16 +34,17 @@
     <li>{{ equipment.name }}</li>
 {% endfor %}</td>
             </tr>
-            <tr>
-                <th>Chercheurs</th>
-                <td>
-                    <ul>
-                        {% for researcher in project.researchers %}
-                            <li>{{ researcher.name }}</li>
-                        {% endfor %}
-                    </ul>
-                </td>
-            </tr>
+           <tr>
+    <th>Publications</th>
+    <td>
+        <ul>
+            {% for publication in project.publications %}
+                <li>{{ publication.title }}</li>
+            {% endfor %}
+        </ul>
+    </td>
+</tr>
+
         </tbody>
     </table>
 

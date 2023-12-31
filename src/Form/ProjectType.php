@@ -15,7 +15,7 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('Username')
+            ->add('username', null, ['label' => 'Chercheurs de projets'])
             ->add('description')
             ->add('startDate')
             ->add('endDate')
