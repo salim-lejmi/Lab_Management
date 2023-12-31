@@ -33,7 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $username = null;
-    #[ORM\ManyToMany(targetEntity: Project::class, inversedBy: 'users')]
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'users')]
     private Collection $projects;
     #[ORM\OneToMany(targetEntity: Publication::class, mappedBy: 'author')]
     private Collection $publications;
@@ -177,6 +177,21 @@ public function getChercheur(): ?string
 public function setChercheur(?string $chercheur): self
 {
     $this->chercheur = $chercheur;
+    return $this;
+}
+public function addProject(Project $project): self
+{
+    if (!$this->projects->contains($project)) {
+        $this->projects[] = $project;
+    }
+
+    return $this;
+}
+
+public function removeProject(Project $project): self
+{
+    $this->projects->removeElement($project);
+
     return $this;
 }
 }

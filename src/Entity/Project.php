@@ -28,15 +28,13 @@ class Project
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
 
-
-    #[ORM\Column(length: 255)]
-    private ?string $username = null;
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'projects')]
     private ?User $author = null;
 
   
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'projects')]
+
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'projects')]
 private Collection $users;
 
     
@@ -45,6 +43,7 @@ private Collection $users;
     private Collection $equipments;
     #[ORM\ManyToMany(targetEntity: Publication::class, mappedBy: "projects")]
     private $publications;
+
 
     public function __construct()
     {
@@ -109,25 +108,13 @@ private Collection $users;
 
 
 
-    public function getUsername(): ?string
-    {
-        return $this->username;
-    }
-
-    public function setUsername(string $username): static
-    {
-        $this->username = $username;
-
-        return $this;
-    }
+ 
+ 
 
     /**
      * @return Collection<int, User>
      */
-    public function getUsers(): Collection
-    {
-        return $this->users;
-    }
+   
 
     public function getAuthor(): ?User
     {
@@ -182,5 +169,26 @@ public function removePublication(Publication $publication): self
 
     return $this;
 }
+public function getUsers(): Collection
+{
+    return $this->users;
+}
 
+public function addUser(User $user): self
+{
+    if (!$this->users->contains($user)) {
+        $this->users[] = $user;
+        $user->addProject($this);
     }
+
+    return $this;
+}
+
+public function removeUser(User $user): self
+{
+    if ($this->users->removeElement($user)) {
+        $user->removeProject($this);
+    }
+
+    return $this;
+}    }

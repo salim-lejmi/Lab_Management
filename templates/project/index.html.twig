@@ -19,7 +19,10 @@
         <tbody>
         {% for project in projects %}
             <tr>
-                <td>{{ project.username }}</td>
+                <td>{% for user in project.users %}
+    {{ user.username }}<br>
+{% endfor %}
+</td>
                 <td>{{ project.title }}</td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.startDate ? project.startDate|date('Y-m-d') : '' }}</td>

@@ -14,7 +14,10 @@
             </tr>
             <tr>
                 <th>Chercheurs</th>
-                <td>{{ project.username }}</td>
+                <td>{% for user in project.users %}<br>
+    {{ user.username }}
+{% endfor %}
+</td>
             </tr>
             <tr>
                 <th>Description</th>

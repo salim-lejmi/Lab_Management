@@ -3,6 +3,7 @@
 namespace App\Form;
 use App\Entity\Equipment;
 use App\Entity\Publication;
+use App\Entity\User;
 
 use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
@@ -15,7 +16,15 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('username', null, ['label' => 'Chercheurs de projets'])
+            ->add('users', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'username',
+                'multiple' => true,
+                'expanded' => true,
+                'by_reference' => false,
+                'label' => 'Chercheurs de projets', 
+
+            ])          
             ->add('description')
             ->add('startDate')
             ->add('endDate')
