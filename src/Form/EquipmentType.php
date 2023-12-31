@@ -1,5 +1,4 @@
 <?php
-// src/Form/EquipmentType.php
 namespace App\Form;
 
 use App\Entity\Equipment;

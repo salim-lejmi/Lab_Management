@@ -35,7 +35,6 @@ class EquipmentController extends AbstractController
    
        $form->handleRequest($request);
        if ($form->isSubmitted() && $form->isValid()) {
-           // Set the current user as the creator of the equipment
            $equipment->setCreator($this->getUser());
    
            $entityManager->persist($equipment);

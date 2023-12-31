@@ -18,5 +18,4 @@ class EquipmentRepository extends ServiceEntityRepository
        parent::__construct($registry, Equipment::class);
    }
 
-   // Add your custom queries here
 }

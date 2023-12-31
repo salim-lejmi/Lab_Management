@@ -1,5 +1,4 @@
 <?php
-// src/Form/PublicationType.php
 namespace App\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Publication;
@@ -20,7 +19,7 @@ class PublicationType extends AbstractType
         ->add('projects', EntityType::class, [
             'class' => Project::class,
             'multiple' => true,
-            'expanded' => true, // render as checkboxes
+            'expanded' => true, 
             'choice_label' => 'title',
         ]);
     }

@@ -32,7 +32,7 @@ class ProjectType extends AbstractType
                 'class' => Equipment::class,
                 'choice_label' => 'name',
                 'multiple' => true,
-                'expanded' => true, // Add this line
+                'expanded' => true, 
                 'by_reference' => false,
 
             ])
@@ -40,7 +40,7 @@ class ProjectType extends AbstractType
                 'class' => Publication::class,
                 'choice_label' => 'title',
                 'multiple' => true,
-                'expanded' => true, // render as checkboxes
+                'expanded' => true, 
                 'by_reference' => false,
             ]);
         ;

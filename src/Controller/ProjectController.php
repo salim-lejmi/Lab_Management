@@ -31,7 +31,6 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Set the author of the project
             $project->setAuthor($this->getUser());
     
             $entityManager->persist($project);
@@ -66,14 +65,12 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: 'app_project_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Project $project, EntityManagerInterface $entityManager): Response
     {
-        // Clone the original publications to compare later
         $originalPublications = clone $project->getPublications();
     
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            // Remove the deselected publications
             foreach ($originalPublications as $publication) {
                 if (false === $project->getPublications()->contains($publication)) {
                     $publication->removeProject($project);
@@ -81,7 +78,6 @@ class ProjectController extends AbstractController
                 }
             }
     
-            // Add new publications
             foreach ($project->getPublications() as $publication) {
                 if (false === $originalPublications->contains($publication)) {
                     $publication->addProject($project);

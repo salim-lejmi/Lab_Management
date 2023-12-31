@@ -45,11 +45,9 @@ class ProfileController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
             
-            // Invalidate the current user session
             $tokenStorage->setToken(null);
             $session->invalidate();
     
-            // Redirect to app_accueil
             return $this->redirectToRoute('app_accueil');
         }
         return $this->redirectToRoute('user_profile');

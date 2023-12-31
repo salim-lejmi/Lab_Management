@@ -1,5 +1,4 @@
 <?php
-// src/Controller/PublicationController.php
 namespace App\Controller;
 
 use App\Entity\Publication;
@@ -51,7 +50,6 @@ class PublicationController extends AbstractController
     #[Route('/publications/{id}/edit', name: 'edit_publication')]
 public function edit(Request $request, Publication $publication, EntityManagerInterface $entityManager): Response
 {
-    // check if the logged in user is the author of the publication
     if ($this->getUser() !== $publication->getAuthor()) {
         throw $this->createAccessDeniedException('You cannot edit publications that you do not own.');
     }
