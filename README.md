@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # pour récupérer ce projet sur votre machine:
 
 Tapez les commandes suivantes:
@@ -15,3 +16,6 @@ Effacer le contenu du dossier migration du projet ensuite taper les commandes su
 creer les fixtures
 
 7. $ php bin/console doctrine:fixtures:load
+=======
+# Lab_Management
+>>>>>>> 4678e8446fcd1f00ddd86f3a77b7861f7ac291e6
