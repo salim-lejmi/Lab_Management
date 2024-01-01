@@ -16,3 +16,7 @@ creer les fixtures
 
 7. $ php bin/console doctrine:fixtures:load
 
+Le compte qui contient le projet et la publication dans la fixture est celui-ci (pour mieux tester) :
+email:alice@gmail.com
+mot de passe:0000
+
